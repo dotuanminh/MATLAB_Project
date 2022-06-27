@@ -12,7 +12,7 @@ typedef struct VirusPlace{
 //row and column of the matrix
 int row=20,column=20;
 //row and column of the first virus
-int firstVirusRow=10,firstVirusColumn=10;
+int firstVirusRow=0,firstVirusColumn=19;
 //intialize the aray of virus
 VirusPlace virus[MAX_VALUE];
 int nVirus=0;
@@ -24,7 +24,7 @@ bool grow[MAX_VALUE][MAX_VALUE];
 
 // tham so hieu chinh, so mu virus phat trien
 double w=1.5;
-int n=0;
+double n=0.5;
 
 void readFile(){
 
@@ -33,7 +33,7 @@ void writeFile(){
 
 }
 
-void addVirus(u,v){
+void addVirus(int u,int v){
     virus[nVirus].x=u;
     virus[nVirus].y=v;
     nVirus++;
@@ -42,12 +42,14 @@ void addVirus(u,v){
     //add o xung quanh (u,v) to candidate.
     int a[4][2]={{1,0},{0,1},{-1,0},{0,-1}};
     for(int i=0;i<4;++i){
-        int candidateRow=u+a[i][0];
-        int candidateColumn=v+a[i][1];
-        if(0<=candidateRow && candidateRow<row && 0<=candidateColumn && candidateColumn <column && grow[candidateRow][candidateColumn]==false){
-            candidate[nCandidate].x=candidateRow;
-            candidate[nCandidate].y=candidateColumn;
-            nCandidate++;
+        for(int j=0;j<nVirus;++j){
+                int candidateRow=virus[j].x+a[i][0];
+                int candidateColumn=virus[j].y+a[i][1];
+                if(0<=candidateRow && candidateRow<row && 0<=candidateColumn && candidateColumn <column && grow[candidateRow][candidateColumn]==false){
+                    candidate[nCandidate].x=candidateRow;
+                    candidate[nCandidate].y=candidateColumn;
+                    nCandidate++;
+                }
         }
     }
 }
@@ -127,3 +129,4 @@ int main(){
     writeFile();
     return 0;
 }
+
