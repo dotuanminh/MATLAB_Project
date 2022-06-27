@@ -30,7 +30,19 @@ void readFile(){
 
 }
 void writeFile(){
-
+    FILE *f;
+    f = fopen("output.txt","w");
+    if(f == NULL){
+        printf("Error!");   
+        exit(1);             
+    }
+    for(int i=0;i<row;++i){
+        for(int j=0;j<column;++j){
+            fprintf(f,"%.2f ", c[i][j]);
+        }
+        fprintf(f,"\n");
+    }
+    fclose(f);
 }
 
 void addVirus(int u,int v){
