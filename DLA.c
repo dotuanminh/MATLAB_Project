@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <math.h>
+#include <stdlib.h>
 #define MAX_VALUE 100
 
 typedef struct VirusPlace{
