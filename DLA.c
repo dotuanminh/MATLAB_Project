@@ -5,8 +5,7 @@
 #define MAX_VALUE 10000
 =======
 #include <stdlib.h>
-#define MAX_VALUE 100
->>>>>>> 141483d6d855e87383fe3eea93c53f3143eb9cec
+
 
 typedef struct VirusPlace{
     long x;
