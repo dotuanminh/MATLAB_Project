@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <math.h>
-#define MAX_VALUE 100
+#define MAX_VALUE 10000
 
 typedef struct VirusPlace{
     long x;
@@ -10,9 +10,9 @@ typedef struct VirusPlace{
 
 //Variable
 //row and column of the matrix
-int row=20,column=20;
+int row=200,column=200;
 //row and column of the first virus
-int firstVirusRow=0,firstVirusColumn=19;
+int firstVirusRow=0,firstVirusColumn=0;
 //intialize the aray of virus
 VirusPlace virus[MAX_VALUE];
 int nVirus=0;
@@ -24,7 +24,7 @@ bool grow[MAX_VALUE][MAX_VALUE];
 
 // tham so hieu chinh, so mu virus phat trien
 double w=1.5;
-double n=0.5;
+double n=2;
 
 void readFile(){
 
@@ -33,8 +33,8 @@ void writeFile(){
     FILE *f;
     f = fopen("output.txt","w");
     if(f == NULL){
-        printf("Error!");   
-        exit(1);             
+        printf("Error!");
+        exit(1);
     }
     for(int i=0;i<row;++i){
         for(int j=0;j<column;++j){
@@ -53,8 +53,8 @@ void addVirus(int u,int v){
     nCandidate=0;
     //add o xung quanh (u,v) to candidate.
     int a[4][2]={{1,0},{0,1},{-1,0},{0,-1}};
-    for(int i=0;i<4;++i){
-        for(int j=0;j<nVirus;++j){
+    for(int j=0;j<nVirus;++j){
+        for(int i=0;i<4;++i){
                 int candidateRow=virus[j].x+a[i][0];
                 int candidateColumn=virus[j].y+a[i][1];
                 if(0<=candidateRow && candidateRow<row && 0<=candidateColumn && candidateColumn <column && grow[candidateRow][candidateColumn]==false){
@@ -64,6 +64,15 @@ void addVirus(int u,int v){
                 }
         }
     }
+//    for(int i=0;i<nVirus;++i){
+//        printf("%d %d \n",virus[i].x,virus[i].y);
+//    }
+//    printf("+++++++++++++++++++++++++++++++++++++++++\n");
+//    for (int i=0;i<nCandidate;++i){
+//        printf("%d %d \n",candidate[i].x,candidate[i].y);
+//
+//    }
+//    printf("--------------------------------------------\n");
 }
 
 void init(){
@@ -109,13 +118,19 @@ void growth(){
     int max=chance[0];
     int index=0;
     for(int i=0;i<nCandidate;++i){
-        if (chance[i]>max) {
-            max= chance[i];
-            index=i;
+        for(int j=i+1;j<nCandidate;++j){
+            if(chance[i]>chance[j]){
+                float tmp=chance[i];
+                chance[i]=chance[j];
+                chance[j]=tmp;
+            }
         }
     }
 
-    addVirus(candidate[index].x,candidate[index].y);
+    addVirus(candidate[0].x,candidate[0].y);
+    addVirus(candidate[1].x,candidate[1].y);
+    addVirus(candidate[2].x,candidate[2].y);
+    addVirus(candidate[3].x,candidate[3].y);
 }
 
 void solve(){
@@ -131,13 +146,13 @@ int main(){
     init();
     readFile();
     solve();
-    printf("%d \n", nVirus);
-    for(int i=0;i<row;++i){
-        for(int j=0;j<column;++j){
-            printf("%.2f ", c[i][j]);
-        }
-        printf("\n");
-    }
+//    printf("--------------------------------------------\n");
+//    for(int i=0;i<row;++i){
+//        for(int j=0;j<column;++j){
+//            printf("%.2f ", c[i][j]);
+//        }
+//        printf("\n");
+//    }
     writeFile();
     return 0;
 }
