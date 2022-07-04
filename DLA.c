@@ -43,11 +43,6 @@ void readFile(){
     fscanf(f, "%d%d", &firstVirusRow, &firstVirusColumn);
     fscanf(f, "%d", &MAX_NUMBER_OF_VIRUS);
     fscanf(f, "%lf%lf", &w, &n);
-    printf("%d %d\n", row, column);
-    printf("%d %d\n", firstVirusRow, firstVirusColumn);
-    printf("%d\n", MAX_NUMBER_OF_VIRUS);
-    printf("%lf %lf\n", w, n);
-
     fclose(f);
 }
 /*
