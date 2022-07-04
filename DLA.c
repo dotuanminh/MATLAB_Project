@@ -1,12 +1,8 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <math.h>
-<<<<<<< HEAD
 #define MAX_VALUE 10000
-=======
-#include <stdlib.h>
-#define MAX_VALUE 100
->>>>>>> 141483d6d855e87383fe3eea93c53f3143eb9cec
+
 
 typedef struct VirusPlace{
     long x;
@@ -18,6 +14,13 @@ typedef struct VirusPlace{
 int row=200,column=200;
 //row and column of the first virus
 int firstVirusRow=0,firstVirusColumn=0;
+//the max number of virus
+const int MAX_NUMBER_OF_VIRUS= 10000;
+// tham so hieu chinh, so mu virus phat trien
+double w=1.5;
+double n=2;
+
+
 //intialize the aray of virus
 VirusPlace virus[MAX_VALUE];
 int nVirus=0;
@@ -27,9 +30,6 @@ double c[MAX_VALUE][MAX_VALUE];
 double chance[MAX_VALUE];
 bool grow[MAX_VALUE][MAX_VALUE];
 
-// tham so hieu chinh, so mu virus phat trien
-double w=1.5;
-double n=2;
 
 void readFile(){
 
@@ -139,7 +139,7 @@ void growth(){
 }
 
 void solve(){
-    while(nVirus<MAX_VALUE){
+    while(nVirus<MAX_NUMBER_OF_VIRUS){
         sor();
         eat();
         computeProbality();
