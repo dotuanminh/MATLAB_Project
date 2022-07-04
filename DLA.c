@@ -2,11 +2,7 @@
 #include <stdbool.h>
 #include <math.h>
 #define MAX_VALUE 10000
-<<<<<<< HEAD
-=======
-=======
 #include <stdlib.h>
->>>>>>> eef1b2af2ae09f157ecd5b833f18ca29061d2956
 
 
 typedef struct VirusPlace{
@@ -16,14 +12,14 @@ typedef struct VirusPlace{
 
 //Variable
 //row and column of the matrix
-int row=200,column=200;
+int row,column;
 //row and column of the first virus
-int firstVirusRow=0,firstVirusColumn=0;
+int firstVirusRow, firstVirusColumn;
 //the max number of virus
-const int MAX_NUMBER_OF_VIRUS= 10000;
+int MAX_NUMBER_OF_VIRUS ;
 // tham so hieu chinh, so mu virus phat trien
-double w=1.5;
-double n=2;
+double w;
+double n;
 
 
 //intialize the aray of virus
@@ -37,8 +33,33 @@ bool grow[MAX_VALUE][MAX_VALUE];
 
 
 void readFile(){
+    FILE *f;
+    f = fopen("input.txt", "r");
+    if(f == NULL){
+        printf("Error!");
+        exit(1);
+    }
+    fscanf(f, "%d%d", &row, &column);
+    fscanf(f, "%d%d", &firstVirusRow, &firstVirusColumn);
+    fscanf(f, "%d", &MAX_NUMBER_OF_VIRUS);
+    fscanf(f, "%lf%lf", &w, &n);
+    printf("%d %d\n", row, column);
+    printf("%d %d\n", firstVirusRow, firstVirusColumn);
+    printf("%d\n", MAX_NUMBER_OF_VIRUS);
+    printf("%lf %lf\n", w, n);
 
+    fclose(f);
 }
+/*
+input.txt construct:
+row column
+firstVirusRow firstVirusColumn
+MAX_NUMBER_OF_VIRUS
+w n
+*/
+
+
+
 void writeFile(){
     FILE *f;
     f = fopen("output.txt","w");
@@ -92,7 +113,7 @@ void init(){
             c[i][j]=1;
         }
     }
-    addVirus(firstVirusRow,firstVirusColumn);
+    addVirus(firstVirusRow, firstVirusColumn);
 
 }
 
