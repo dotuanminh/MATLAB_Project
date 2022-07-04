@@ -2,6 +2,11 @@
 #include <stdbool.h>
 #include <math.h>
 #define MAX_VALUE 10000
+<<<<<<< HEAD
+=======
+=======
+#include <stdlib.h>
+>>>>>>> eef1b2af2ae09f157ecd5b833f18ca29061d2956
 
 
 typedef struct VirusPlace{
