@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <math.h>
+#define MAX 100
 #define MAX_VALUE 10000
 #include <stdlib.h>
 
@@ -32,11 +33,15 @@ double chance[MAX_VALUE];
 bool grow[MAX_VALUE][MAX_VALUE];
 
 
-void readFile(){
+void readFile(int i){
     FILE *f;
     char fileName[100];
-
-    f = fopen("test_case\\test_case3\\input3.txt", "r");
+    char name[] = "test_case\\test_case";
+    char no[MAX];
+    char format[] = "txt";
+    sprintf(no, "%d", i);
+    sprintf(fileName, "%s%s\\%s%s.%s", name, no,"input",no, format);
+    f = fopen(fileName, "r");
     // f = fopen("input.txt", "r");
     if(f == NULL){
         printf("No file found!");
@@ -58,9 +63,17 @@ w n
 
 
 
-void writeFile(){
+void writeFile(int i){
     FILE *f;
-    f = fopen("test_case\\test_case3\\output3.txt","w");
+    char fileName[100];
+    char name[] = "test_case\\test_case";
+    char no[MAX];
+    char format[] = "txt";
+
+    sprintf(no, "%d", i);
+    sprintf(fileName, "%s%s\\%s%s.%s", name, no,"output",no, format);
+    f = fopen(fileName, "w");
+    
     if(f == NULL){
         printf("Error!");
         exit(1);
@@ -173,15 +186,11 @@ void solve(){
 
 int main(){
     init();
-    readFile();
-    solve();
-//    printf("--------------------------------------------\n");
-//    for(int i=0;i<row;++i){
-//        for(int j=0;j<column;++j){
-//            printf("%.2f ", c[i][j]);
-//        }
-//        printf("\n");
-//    }
-    writeFile();
+
+    for(int i = 1;i<=100;i++){
+        readFile(i);
+        solve();
+        writeFile(i);
+    }
     return 0;
 }

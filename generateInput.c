@@ -32,16 +32,16 @@ void generateInput()
             printf("Error!");
             exit(1);
         }
-        // row, column belongs to [100; 500]
-        int row = intRandom(MAX_ROW, MAX_COLUMN);
-        int column = intRandom(MAX, 500);
+        // row, column belongs to [20; 50]
+        int row = intRandom(20, MAX_ROW);
+        int column = intRandom(20, MAX_COLUMN);
 
         // Location of the first virus
         // firstRow belongs to [1, the number of row]
         int firstRow = intRandom(1, row);
         // firstColumn belongs to [1, the number of column]
         int firstColumn = intRandom(1, column);
-        int MAX_NUMBER_OF_VIRUS = intRandom(MAX_ROW * MAX_COLUMN, row * column);
+        int MAX_NUMBER_OF_VIRUS = intRandom(row*column/4, row*column/2);
         double w = 1.5;
         double n = doubleRandom(0.5, 2);
 
