@@ -1,10 +1,9 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <math.h>
+#include <stdlib.h>
 #define MAX 100
 #define MAX_VALUE 10000
-#include <stdlib.h>
-
 
 typedef struct VirusPlace{
     long x;
@@ -188,9 +187,11 @@ int main(){
     init();
 
     for(int i = 1;i<=100;i++){
+        printf("Solving testcase %d...\n",i);
         readFile(i);
         solve();
         writeFile(i);
     }
+    printf("Done!");
     return 0;
 }

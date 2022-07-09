@@ -2,8 +2,10 @@
 #include <stdlib.h>
 #include <string.h>
 #define MAX 100
-const long MAX_ROW = 50;
-const long MAX_COLUMN = 50;
+const long MIN_ROW = 50;
+const long MIN_COLUMN = 50;
+const long MAX_ROW = 200;
+const long MAX_COLUMN = 200;
 
 int intRandom(const long min, const long max)
 {
@@ -33,15 +35,15 @@ void generateInput()
             exit(1);
         }
         // row, column belongs to [20; 50]
-        int row = intRandom(20, MAX_ROW);
-        int column = intRandom(20, MAX_COLUMN);
+        int row = intRandom(MIN_ROW, MAX_ROW);
+        int column = intRandom(MIN_COLUMN, MAX_COLUMN);
 
         // Location of the first virus
         // firstRow belongs to [1, the number of row]
         int firstRow = intRandom(1, row);
         // firstColumn belongs to [1, the number of column]
         int firstColumn = intRandom(1, column);
-        int MAX_NUMBER_OF_VIRUS = intRandom(row*column/4, row*column/2);
+        int MAX_NUMBER_OF_VIRUS = intRandom(row*column/4, row*column/3);
         double w = 1.5;
         double n = doubleRandom(0.5, 2);
 
