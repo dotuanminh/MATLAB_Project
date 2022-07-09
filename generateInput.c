@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#define MAX 100
 
 int intRandom(int min, int max)
 {
@@ -13,18 +14,16 @@ double doubleRandom(double min, double max)
     return min + scale * (max - min);         /* [min, max] */
 }
 
-void writeFile()
+void generateInput()
 {
     FILE *f;
-    for (int i = 1; i < 101; i++)
-    {
-        char name[6] = "input";
-        char no[4];
-        char format[4] = "txt";
-        char fileName[13];
+    for (int i = 1; i < 101; i++){
+        char name[] = "test_case\\input";
+        char no[MAX];
+        char format[] = "txt";
+        char fileName[MAX];
         sprintf(no, "%d", i);
         sprintf(fileName, "%s%s.%s", name, no, format);
-        // printf("%s\n", fileName);
         f = fopen(fileName, "w");
         if (f == NULL)
         {
@@ -61,5 +60,5 @@ void writeFile()
 
 int main()
 {
-    writeFile();
+    generateInput();
 }
