@@ -34,9 +34,12 @@ bool grow[MAX_VALUE][MAX_VALUE];
 
 void readFile(){
     FILE *f;
-    f = fopen("input.txt", "r");
+    char fileName[100];
+
+    f = fopen("test_case\\test_case3\\input3.txt", "r");
+    // f = fopen("input.txt", "r");
     if(f == NULL){
-        printf("Error!");
+        printf("No file found!");
         exit(1);
     }
     fscanf(f, "%d%d", &row, &column);
@@ -57,7 +60,7 @@ w n
 
 void writeFile(){
     FILE *f;
-    f = fopen("output.txt","w");
+    f = fopen("test_case\\test_case3\\output3.txt","w");
     if(f == NULL){
         printf("Error!");
         exit(1);
@@ -182,4 +185,3 @@ int main(){
     writeFile();
     return 0;
 }
-
