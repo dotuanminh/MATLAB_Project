@@ -2,8 +2,10 @@
 #include <stdlib.h>
 #include <string.h>
 #define MAX 100
+const long MAX_ROW = 50;
+const long MAX_COLUMN = 50;
 
-int intRandom(int min, int max)
+int intRandom(const long min, const long max)
 {
     return min + rand() % (max + 1 - min);
 }
@@ -18,12 +20,12 @@ void generateInput()
 {
     FILE *f;
     for (int i = 1; i < 101; i++){
-        char name[] = "test_case\\input";
+        char name[] = "test_case\\test_case";
         char no[MAX];
         char format[] = "txt";
         char fileName[MAX];
         sprintf(no, "%d", i);
-        sprintf(fileName, "%s%s.%s", name, no, format);
+        sprintf(fileName, "%s%s\\%s%s.%s", name, no,"input",no, format);
         f = fopen(fileName, "w");
         if (f == NULL)
         {
@@ -31,15 +33,15 @@ void generateInput()
             exit(1);
         }
         // row, column belongs to [100; 500]
-        int row = intRandom(100, 500);
-        int column = intRandom(100, 500);
+        int row = intRandom(MAX_ROW, MAX_COLUMN);
+        int column = intRandom(MAX, 500);
 
         // Location of the first virus
         // firstRow belongs to [1, the number of row]
         int firstRow = intRandom(1, row);
         // firstColumn belongs to [1, the number of column]
         int firstColumn = intRandom(1, column);
-        int MAX_NUMBER_OF_VIRUS = intRandom(100 * 100, row * column);
+        int MAX_NUMBER_OF_VIRUS = intRandom(MAX_ROW * MAX_COLUMN, row * column);
         double w = 1.5;
         double n = doubleRandom(0.5, 2);
 
