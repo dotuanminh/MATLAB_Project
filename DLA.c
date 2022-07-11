@@ -13,14 +13,14 @@ typedef struct VirusPlace{
 
 //Variable
 //row and column of the matrix
-int row=200,column=200;
+int row = 0,column = 0;
 //row and column of the first virus
-int firstVirusRow=0, firstVirusColumn=0;
+int firstVirusRow = 0, firstVirusColumn = 0;
 //the max number of virus
-int MAX_NUMBER_OF_VIRUS=10000;
+int MAX_NUMBER_OF_VIRUS = 10000;
 // tham so hieu chinh, so mu virus phat trien
-double w=1.5;
-double n=1.2;
+double w = 1.5;
+double n = 1.2;
 
 
 //intialize the aray of virus
@@ -35,15 +35,15 @@ bool grow[MAX_VALUE][MAX_VALUE];
 
 void readFile(){
     FILE *f;
-    f = fopen("input.txt", "r");
+    f = fopen("test_case\\test_case1\\input1.txt", "r");
     if(f == NULL){
         printf("Error!");
         exit(1);
     }
-    fscanf(f, "%d%d", &row, &column);
-    fscanf(f, "%d%d", &firstVirusRow, &firstVirusColumn);
+    fscanf(f, "%d %d", &row, &column);
+    fscanf(f, "%d %d", &firstVirusRow, &firstVirusColumn);
     fscanf(f, "%d", &MAX_NUMBER_OF_VIRUS);
-    fscanf(f, "%lf%lf", &w, &n);
+    fscanf(f, "%lf %lf", &w, &n);
     fclose(f);
 }
 /*
@@ -58,7 +58,7 @@ w n
 
 void writeFile(){
     FILE *f;
-    f = fopen("output.txt","w");
+    f = fopen("test_case\\test_case1\\output1.txt","w");
     if(f == NULL){
         printf("Error!");
         exit(1);
@@ -101,7 +101,6 @@ void init(){
         }
     }
     addVirus(firstVirusRow, firstVirusColumn);
-
 }
 
 void sor(){
@@ -133,8 +132,6 @@ void computeProbality(){
 }
 
 void growth(){
-    int max=chance[0];
-    int index=0;
     for(int i=0;i<nCandidate;++i){
         float turnToVirusPercentage = n = (float)rand()/RAND_MAX;;
         if(turnToVirusPercentage<=(float)chance[i]){
@@ -154,8 +151,12 @@ void solve(){
 }
 
 int main(){
+    readFile();
     init();
-//    readFile();
+    printf("%d %d\n", row, column);
+    printf("%d %d\n", firstVirusRow, firstVirusColumn);
+    printf("%d\n", MAX_NUMBER_OF_VIRUS);
+    printf("%lf %lf\n", w, n);    ///in cho dep thoi de bthg luc run xong ko co gi tren terminal ca
     solve();
     writeFile();
     return 0;
