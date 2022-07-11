@@ -2,8 +2,9 @@
 #include <stdbool.h>
 #include <math.h>
 #include <stdlib.h>
-#define MAX 100
+#include <time.h>
 #define MAX_VALUE 10000
+
 
 typedef struct VirusPlace{
     long x;
@@ -12,14 +13,14 @@ typedef struct VirusPlace{
 
 //Variable
 //row and column of the matrix
-int row,column;
+int row=200,column=200;
 //row and column of the first virus
-int firstVirusRow, firstVirusColumn;
+int firstVirusRow=0, firstVirusColumn=0;
 //the max number of virus
-int MAX_NUMBER_OF_VIRUS ;
+int MAX_NUMBER_OF_VIRUS=10000;
 // tham so hieu chinh, so mu virus phat trien
-double w;
-double n;
+double w=1.5;
+double n=1.2;
 
 
 //intialize the aray of virus
@@ -32,18 +33,11 @@ double chance[MAX_VALUE];
 bool grow[MAX_VALUE][MAX_VALUE];
 
 
-void readFile(int i){
+void readFile(){
     FILE *f;
-    char fileName[100];
-    char name[] = "test_case\\test_case";
-    char no[MAX];
-    char format[] = "txt";
-    sprintf(no, "%d", i);
-    sprintf(fileName, "%s%s\\%s%s.%s", name, no,"input",no, format);
-    f = fopen(fileName, "r");
-    // f = fopen("input.txt", "r");
+    f = fopen("input.txt", "r");
     if(f == NULL){
-        printf("No file found!");
+        printf("Error!");
         exit(1);
     }
     fscanf(f, "%d%d", &row, &column);
@@ -62,17 +56,9 @@ w n
 
 
 
-void writeFile(int i){
+void writeFile(){
     FILE *f;
-    char fileName[100];
-    char name[] = "test_case\\test_case";
-    char no[MAX];
-    char format[] = "txt";
-
-    sprintf(no, "%d", i);
-    sprintf(fileName, "%s%s\\%s%s.%s", name, no,"output",no, format);
-    f = fopen(fileName, "w");
-    
+    f = fopen("output.txt","w");
     if(f == NULL){
         printf("Error!");
         exit(1);
@@ -105,15 +91,6 @@ void addVirus(int u,int v){
                 }
         }
     }
-//    for(int i=0;i<nVirus;++i){
-//        printf("%d %d \n",virus[i].x,virus[i].y);
-//    }
-//    printf("+++++++++++++++++++++++++++++++++++++++++\n");
-//    for (int i=0;i<nCandidate;++i){
-//        printf("%d %d \n",candidate[i].x,candidate[i].y);
-//
-//    }
-//    printf("--------------------------------------------\n");
 }
 
 void init(){
@@ -159,19 +136,12 @@ void growth(){
     int max=chance[0];
     int index=0;
     for(int i=0;i<nCandidate;++i){
-        for(int j=i+1;j<nCandidate;++j){
-            if(chance[i]>chance[j]){
-                float tmp=chance[i];
-                chance[i]=chance[j];
-                chance[j]=tmp;
-            }
+        float turnToVirusPercentage = n = (float)rand()/RAND_MAX;;
+        if(turnToVirusPercentage<=(float)chance[i]){
+            addVirus(candidate[i].x,candidate[i].y);
+            if(nVirus==MAX_NUMBER_OF_VIRUS) break;
         }
     }
-
-    addVirus(candidate[0].x,candidate[0].y);
-    addVirus(candidate[1].x,candidate[1].y);
-    addVirus(candidate[2].x,candidate[2].y);
-    addVirus(candidate[3].x,candidate[3].y);
 }
 
 void solve(){
@@ -185,13 +155,9 @@ void solve(){
 
 int main(){
     init();
-
-    for(int i = 1;i<=100;i++){
-        printf("Solving testcase %d...\n",i);
-        readFile(i);
-        solve();
-        writeFile(i);
-    }
-    printf("Done!");
+//    readFile();
+    solve();
+    writeFile();
     return 0;
 }
+
