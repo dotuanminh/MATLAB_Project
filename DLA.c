@@ -3,6 +3,7 @@
 #include <math.h>
 #include <stdlib.h>
 #include <time.h>
+#define MAX 100
 #define MAX_VALUE 10000
 
 
@@ -33,17 +34,24 @@ double chance[MAX_VALUE];
 bool grow[MAX_VALUE][MAX_VALUE];
 
 
-void readFile(){
+void readFile(int i){
     FILE *f;
-    f = fopen("test_case\\test_case1\\input1.txt", "r");
+    char fileName[100];
+    char name[] = "test_case\\test_case";
+    char no[MAX];
+    char format[] = "txt";
+    sprintf(no, "%d", i);
+    sprintf(fileName, "%s%s\\%s%s.%s", name, no,"input",no, format);
+    f = fopen(fileName, "r");
+    // f = fopen("input.txt", "r");
     if(f == NULL){
-        printf("Error!");
+        printf("No file found!");
         exit(1);
     }
-    fscanf(f, "%d %d", &row, &column);
-    fscanf(f, "%d %d", &firstVirusRow, &firstVirusColumn);
+    fscanf(f, "%d%d", &row, &column);
+    fscanf(f, "%d%d", &firstVirusRow, &firstVirusColumn);
     fscanf(f, "%d", &MAX_NUMBER_OF_VIRUS);
-    fscanf(f, "%lf %lf", &w, &n);
+    fscanf(f, "%lf%lf", &w, &n);
     fclose(f);
 }
 /*
@@ -56,9 +64,17 @@ w n
 
 
 
-void writeFile(){
+void writeFile(int i){
     FILE *f;
-    f = fopen("test_case\\test_case1\\output1.txt","w");
+    char fileName[100];
+    char name[] = "test_case\\test_case";
+    char no[MAX];
+    char format[] = "txt";
+
+    sprintf(no, "%d", i);
+    sprintf(fileName, "%s%s\\%s%s.%s", name, no,"output",no, format);
+    f = fopen(fileName, "w");
+    
     if(f == NULL){
         printf("Error!");
         exit(1);
@@ -151,14 +167,12 @@ void solve(){
 }
 
 int main(){
-    readFile();
+    
+    readFile(10);
     init();
-    printf("%d %d\n", row, column);
-    printf("%d %d\n", firstVirusRow, firstVirusColumn);
-    printf("%d\n", MAX_NUMBER_OF_VIRUS);
-    printf("%lf %lf\n", w, n);    ///in cho dep thoi de bthg luc run xong ko co gi tren terminal ca
     solve();
-    writeFile();
+    writeFile(10);
+    printf("Done!");
     return 0;
 }
 

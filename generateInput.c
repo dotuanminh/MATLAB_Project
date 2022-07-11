@@ -21,7 +21,7 @@ double doubleRandom(double min, double max)
 void generateInput()
 {
     FILE *f;
-    for (int i = 1; i < 101; i++){
+    for (int i = 1; i <= 10; i++){
         char name[] = "test_case\\test_case";
         char no[MAX];
         char format[] = "txt";
@@ -43,7 +43,7 @@ void generateInput()
         int firstRow = intRandom(1, row);
         // firstColumn belongs to [1, the number of column]
         int firstColumn = intRandom(1, column);
-        int MAX_NUMBER_OF_VIRUS = intRandom(row*column/4, row*column/3);
+        int MAX_NUMBER_OF_VIRUS = intRandom(row*column/3, row*column/2);
         double w = 1.5;
         double n = doubleRandom(0.5, 2);
 
@@ -65,4 +65,5 @@ void generateInput()
 int main()
 {
     generateInput();
+    printf("Done!");
 }
