@@ -6,34 +6,37 @@
 #define MAX 100
 #define MAX_VALUE 10000
 
-
+//Virus location structure
 typedef struct VirusPlace{
     long x;
     long y;
 } VirusPlace;
 
 //Variable
-//row and column of the matrix
+//Row and column of the matrix
 int row = 0,column = 0;
-//row and column of the first virus
+//Row and column of the first virus
 int firstVirusRow = 0, firstVirusColumn = 0;
-//the max number of virus
+//The max number of virus
 int MAX_NUMBER_OF_VIRUS = 10000;
 // tham so hieu chinh, so mu virus phat trien
 double w = 1.5;
 double n = 1.2;
 
-
-//intialize the aray of virus
+//Virus in the matrix
 VirusPlace virus[MAX_VALUE];
 int nVirus=0;
+//Candidate(which can be virus) in the matrix
 VirusPlace candidate[MAX_VALUE];
 int nCandidate=0;
+//food level
 double c[MAX_VALUE][MAX_VALUE];
+//Probability a location can turn into a virus
 double chance[MAX_VALUE];
+//boolean to check whether there is a virus in this location
 bool grow[MAX_VALUE][MAX_VALUE];
 
-
+//This function reads the file "inout.txt" 
 void readFile(int i){
     FILE *f;
     char fileName[100];
@@ -63,7 +66,7 @@ w n
 */
 
 
-
+//This function writes the matrix c[i][j] to the file "output.txt"
 void writeFile(int i){
     FILE *f;
     char fileName[100];
@@ -88,13 +91,16 @@ void writeFile(int i){
     fclose(f);
 }
 
+//This function adds virus
 void addVirus(int u,int v){
+    //add virus to array virus
     virus[nVirus].x=u;
     virus[nVirus].y=v;
     nVirus++;
+    //there is virus at (u,v) -> grow[u][v]=true
     grow[u][v]=true;
+    //add neighbors of (u,v) to candidate.
     nCandidate=0;
-    //add o xung quanh (u,v) to candidate.
     int a[4][2]={{1,0},{0,1},{-1,0},{0,-1}};
     for(int j=0;j<nVirus;++j){
         for(int i=0;i<4;++i){
@@ -109,6 +115,7 @@ void addVirus(int u,int v){
     }
 }
 
+//This function intiallizes the value of all variables
 void init(){
     for(int i=0;i<row;++i){
         for(int j=0;j<column;++j){
@@ -116,9 +123,11 @@ void init(){
             c[i][j]=1;
         }
     }
+    //add the first virus to the matrix
     addVirus(firstVirusRow, firstVirusColumn);
 }
 
+//This functions calculates the food level (c[i][j])
 void sor(){
     for(int i=0;i<row;++i){
         for(int j=0;j<column;++j){
@@ -129,6 +138,7 @@ void sor(){
     }
 }
 
+//This functions makes the food level at a place which has virus to 0.
 void eat(){
     for(int i=0;i<row;++i){
         for(int j=0;j<column;++j){
@@ -137,6 +147,7 @@ void eat(){
     }
 }
 
+//This function calculates the probability
 void computeProbality(){
     int sum=0;
     for (int i=0;i<nCandidate;++i){
@@ -147,7 +158,9 @@ void computeProbality(){
     }
 }
 
+//This functions randomly pick a candidate to become virus
 void growth(){
+    //If the random number smaller than the chance in any cell, we will add it to the array virus
     for(int i=0;i<nCandidate;++i){
         float turnToVirusPercentage = n = (float)rand()/RAND_MAX;;
         if(turnToVirusPercentage<=(float)chance[i]){
@@ -157,6 +170,7 @@ void growth(){
     }
 }
 
+//This functions implements the process, until we get enough virus then sor()->eat()->computeProbality()->growth()
 void solve(){
     while(nVirus<MAX_NUMBER_OF_VIRUS){
         sor();
@@ -166,6 +180,7 @@ void solve(){
     }
 }
 
+//main
 int main(){
     
     readFile(10);
